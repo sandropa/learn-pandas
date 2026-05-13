@@ -1,7 +1,10 @@
 [project]
 name = "learn-pandas"
 version = "0.1.0"
-description = "Add your description here"
+description = "A TUI for learning pandas through interactive exercises"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pandas>=2.0",
+    "rich>=13.0",
+]
