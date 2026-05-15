@@ -12,6 +12,12 @@ echo 'alias learn-pandas="uv run --project ~/.local/src/learn-pandas python ~/.l
 source ~/.bashrc
 ```
 
+## Update
+
+```bash
+cd ~/.local/src/learn-pandas && git pull
+```
+
 ## Usage
 
 ```
