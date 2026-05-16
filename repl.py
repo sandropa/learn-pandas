@@ -36,11 +36,13 @@ class _TrackingConsole(code.InteractiveConsole):
         self.last_result = None
 
     def write(self, data):
+        sys.stderr.write("\n")
         for line in data.split("\n"):
             if line:
-                sys.stderr.write(f"  {line}\n")
+                sys.stderr.write(f"  \033[31m{line}\033[0m\n")
             else:
                 sys.stderr.write("\n")
+        sys.stderr.write("\n")
 
     def runcode(self, code_obj):
         old_displayhook = sys.displayhook
@@ -51,8 +53,10 @@ class _TrackingConsole(code.InteractiveConsole):
                 builtins._ = value
                 text = repr(value)
                 if text:
+                    print()
                     for line in text.split("\n"):
                         print(f"  {line}")
+                    print()
         sys.displayhook = hook
         try:
             super().runcode(code_obj)
