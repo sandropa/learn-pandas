@@ -74,6 +74,7 @@ def run_repl(exercise_data):
     solution_code = exercise["solution_code"]
 
     repl = _TrackingConsole(locals=ns)
+    hint_used = False
 
     def submit(result=None):
         if result is None:
@@ -104,6 +105,8 @@ def run_repl(exercise_data):
         raise _Solved()
 
     def hint():
+        nonlocal hint_used
+        hint_used = True
         print_hint(exercise["hint"])
 
     def quit_app():
@@ -133,7 +136,7 @@ def run_repl(exercise_data):
     try:
         repl.interact(banner="", exitmsg="")
     except _Solved:
-        return "solved"
+        return "hint" if hint_used else "solved"
     except _Failed:
         return "failed"
     except SystemExit:
