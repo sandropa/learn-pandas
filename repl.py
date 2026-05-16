@@ -118,11 +118,15 @@ def run_repl(exercise_data):
     def quit_app():
         raise SystemExit()
 
-    def help_text():
+    def help_text(*args):
+        if args:
+            builtins.help(*args)
+            return
         print("  s / submit      Check last result")
         print("  submit(df)      Check specific answer")
         print("  h / hint        Get a hint")
         print("  help            Show this message")
+        print("  help(x)         Python help on x")
         print("  q / exit        Quit")
 
     submit_cmd = _Command(submit)
