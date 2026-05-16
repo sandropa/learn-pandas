@@ -92,6 +92,12 @@ def run_repl(exercise_data):
         if set(r.columns) == set(e.columns):
             r = r[e.columns]
 
+        for col in r.columns:
+            if pd.api.types.is_datetime64_any_dtype(r[col]):
+                r[col] = r[col].dt.strftime("%Y-%m-%d")
+            elif hasattr(r[col], "cat"):
+                r[col] = r[col].astype(str)
+
         r = r.sort_values(by=list(r.columns)).reset_index(drop=True)
         e = e.sort_values(by=list(e.columns)).reset_index(drop=True)
 
