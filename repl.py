@@ -68,9 +68,9 @@ def run_repl(exercise_data):
     ns = {"pd": pd, "np": np}
 
     for tbl in tables:
-        ns[tbl["name"]] = pd.read_csv(io.StringIO(tbl["display_csv"]))
+        ns[tbl["name"]] = pd.read_csv(io.StringIO(tbl["csv"]))
 
-    expected_df = pd.read_csv(io.StringIO(expected["display_expected_csv"]))
+    expected_df = pd.read_csv(io.StringIO(expected["expected_csv"]))
     solution_code = exercise["solution_code"]
 
     repl = _TrackingConsole(locals=ns)

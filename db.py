@@ -19,16 +19,14 @@ CREATE TABLE IF NOT EXISTS exercise_tables (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     exercise_id INTEGER NOT NULL REFERENCES exercises(id),
     name TEXT NOT NULL,
-    display_csv TEXT NOT NULL,
-    test_csv TEXT NOT NULL,
+    csv TEXT NOT NULL,
     sort_order INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS exercise_expected (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     exercise_id INTEGER NOT NULL REFERENCES exercises(id),
-    display_expected_csv TEXT NOT NULL,
-    test_expected_csv TEXT NOT NULL
+    expected_csv TEXT NOT NULL
 );
 """
 
@@ -69,14 +67,14 @@ def seed_db():
             ex_id = cursor.lastrowid
             for i, tbl in enumerate(ex["tables"]):
                 conn.execute(
-                    "INSERT INTO exercise_tables (exercise_id, name, display_csv, test_csv, sort_order) "
-                    "VALUES (?, ?, ?, ?, ?)",
-                    (ex_id, tbl["name"], tbl["display_csv"], tbl["test_csv"], i),
+                    "INSERT INTO exercise_tables (exercise_id, name, csv, sort_order) "
+                    "VALUES (?, ?, ?, ?)",
+                    (ex_id, tbl["name"], tbl["csv"], i),
                 )
             conn.execute(
-                "INSERT INTO exercise_expected (exercise_id, display_expected_csv, test_expected_csv) "
-                "VALUES (?, ?, ?)",
-                (ex_id, ex["display_expected_csv"], ex["test_expected_csv"]),
+                "INSERT INTO exercise_expected (exercise_id, expected_csv) "
+                "VALUES (?, ?)",
+                (ex_id, ex["expected_csv"]),
             )
 
     conn.commit()

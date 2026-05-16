@@ -47,7 +47,7 @@ def render_exercise(data, level, streak, failed_count=0, redeemed=0):
 
     rich_tables = []
     for tbl in tables:
-        df = pd.read_csv(io.StringIO(tbl["display_csv"]))
+        df = pd.read_csv(io.StringIO(tbl["csv"]))
         rt = Table(
             title=tbl["name"],
             title_style="bold yellow",
