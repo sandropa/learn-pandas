@@ -55,6 +55,7 @@ def render_exercise(data, level, streak, failed_count=0, redeemed=0):
             box=box.SIMPLE_HEAVY,
             show_edge=False,
             padding=(0, 1),
+            expand=False,
         )
         for col in df.columns:
             rt.add_column(col, header_style="yellow")
@@ -63,7 +64,7 @@ def render_exercise(data, level, streak, failed_count=0, redeemed=0):
         rich_tables.append(rt)
 
     for rt in rich_tables:
-        console.print(Padding(rt, (0, 0, 0, 2)))
+        console.print(Padding(rt, (0, 2, 0, 2)))
         console.print()
     _light_rule()
     console.print()

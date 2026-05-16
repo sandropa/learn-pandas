@@ -59,7 +59,7 @@ class _TrackingConsole(code.InteractiveConsole):
                 builtins._ = value
                 if isinstance(value, (pd.DataFrame, pd.Series)):
                     df = value.to_frame() if isinstance(value, pd.Series) else value
-                    rt = Table(box=box.SIMPLE, show_edge=False, padding=(0, 1))
+                    rt = Table(box=box.SIMPLE, show_edge=False, padding=(0, 1), expand=False)
                     rt.add_column("", style="dim")
                     for col in df.columns:
                         rt.add_column(str(col))
@@ -67,7 +67,7 @@ class _TrackingConsole(code.InteractiveConsole):
                         rt.add_row(str(idx), *[str(v) for v in row])
                     print()
                     from rich.padding import Padding
-                    _console.print(Padding(rt, (0, 0, 0, 2)))
+                    _console.print(Padding(rt, (0, 2, 0, 2)))
                     print()
                 else:
                     text = repr(value)
