@@ -59,9 +59,6 @@ def main():
         if outcome == "quit":
             break
 
-        if streak < 3:
-            outcome = "fail"
-
         if outcome is None and failed:
             for i, data in enumerate(failed):
                 render_exercise(data, level, 3, len(failed), i)
