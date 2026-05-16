@@ -71,7 +71,7 @@ def render_exercise(data, level, streak, failed_count=0, redeemed=0):
 
 def print_correct(solution_code):
     w = _rule_w()
-    bar = " CORRECT ".center(w)
+    bar = " " * w
     console.print()
     console.print(f"  [bold black on green]{bar}[/bold black on green]")
     console.print()
@@ -81,7 +81,7 @@ def print_correct(solution_code):
 
 def print_incorrect(solution_code):
     w = _rule_w()
-    bar = " NOT QUITE ".center(w)
+    bar = " " * w
     console.print()
     console.print(f"  [bold black on red]{bar}[/bold black on red]")
     console.print()

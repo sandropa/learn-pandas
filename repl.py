@@ -7,7 +7,13 @@ import sys
 import numpy as np
 import pandas as pd
 
+from rich import box
+from rich.console import Console
+from rich.table import Table
+
 from ui import print_correct, print_hint, print_incorrect
+
+_console = Console()
 
 
 class _Solved(SystemExit):
@@ -51,12 +57,25 @@ class _TrackingConsole(code.InteractiveConsole):
                 self.last_result = value
             if value is not None:
                 builtins._ = value
-                text = repr(value)
-                if text:
+                if isinstance(value, (pd.DataFrame, pd.Series)):
+                    df = value.to_frame() if isinstance(value, pd.Series) else value
+                    rt = Table(box=box.SIMPLE, show_edge=False, padding=(0, 1))
+                    rt.add_column("", style="dim")
+                    for col in df.columns:
+                        rt.add_column(str(col))
+                    for idx, row in df.iterrows():
+                        rt.add_row(str(idx), *[str(v) for v in row])
                     print()
-                    for line in text.split("\n"):
-                        print(f"  {line}")
+                    from rich.padding import Padding
+                    _console.print(Padding(rt, (0, 0, 0, 2)))
                     print()
+                else:
+                    text = repr(value)
+                    if text:
+                        print()
+                        for line in text.split("\n"):
+                            print(f"  {line}")
+                        print()
         sys.displayhook = hook
         try:
             super().runcode(code_obj)
