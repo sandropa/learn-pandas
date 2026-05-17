@@ -1,11 +1,22 @@
 import random
 
-from db import get_exercises_for_level, init_db, seed_db
 from levels import LEVELS
 from repl import run_repl
 from ui import _heavy_rule, render_banner, render_exercise
 
 MAX_LEVEL = max(LEVELS)
+
+
+def get_exercises_for_level(level):
+    exercises = LEVELS.get(level, LEVELS[1])
+    return [
+        {
+            "exercise": ex,
+            "tables": ex["tables"],
+            "expected": {"expected_csv": ex["expected_csv"]},
+        }
+        for ex in exercises
+    ]
 
 
 def _continue():
@@ -16,8 +27,6 @@ def _continue():
 
 
 def main():
-    init_db()
-    seed_db()
     render_banner()
 
     level = 1
