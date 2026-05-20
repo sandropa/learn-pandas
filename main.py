@@ -1,3 +1,4 @@
+import argparse
 import random
 
 from levels import LEVELS
@@ -27,9 +28,13 @@ def _continue():
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Pandas Trainer")
+    parser.add_argument("-l", "--level", type=int, default=1)
+    args = parser.parse_args()
+
     render_banner()
 
-    level = 1
+    level = max(1, min(args.level, MAX_LEVEL))
 
     while True:
         exercises = get_exercises_for_level(level)
